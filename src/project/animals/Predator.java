@@ -42,6 +42,15 @@ public abstract class Predator implements Animal {
         }
     }
 
+    @Override
+    public void addAnimalToCell(Savanna savanna) {
+        savanna.getConcreteCell(getRow(), getCol()).getCellAnimals().add(this);
+    }
+
+    @Override
+    public void removeAnimalFromCell(Savanna savanna, int rows, int cols) {
+        savanna.getConcreteCell(getRow()+rows, getCol() + cols).getCellAnimals().remove(this);
+    }
 
     @Override
     public void move(Savanna savanna) {
@@ -50,23 +59,23 @@ public abstract class Predator implements Animal {
         int direction = Math.abs(random.nextInt(4));
         if (direction == 1 && getCol() > 1) {
             setCol(getCol() - 2);
-            savanna.getConcreteCell(getRow(), getCol()).getCellAnimals().add(this);
-            savanna.getConcreteCell(getRow(), getCol() + 2).getCellAnimals().remove(this);
+            addAnimalToCell(savanna);
+            removeAnimalFromCell(savanna,0,2);
             System.out.print(" na pozycję " + this.getRow() + ". " + this.getCol()+ "\n");
         } else if (direction == 2 && getRow() > 1) {
             setRow(getRow() - 2);
-            savanna.getConcreteCell(getRow(), getCol()).getCellAnimals().add(this);
-            savanna.getConcreteCell(getRow() + 2, getCol()).getCellAnimals().remove(this);
+            addAnimalToCell(savanna);
+            removeAnimalFromCell(savanna,2,0);
             System.out.print(" na pozycję " + this.getRow() + ". " + this.getCol()+ "\n");
         } else if (direction == 3 && savanna.getCols() > this.getCol() + 2) {
             setCol(getCol() + 2);
-            savanna.getConcreteCell(getRow(), getCol()).getCellAnimals().add(this);
-            savanna.getConcreteCell(getRow(), getCol() - 2).getCellAnimals().remove(this);
+            addAnimalToCell(savanna);
+            removeAnimalFromCell(savanna,0,(-2));
             System.out.print(" na pozycję " + this.getRow() + ". " + this.getCol()+ "\n");
         } else if (direction == 0 && savanna.getRows() > this.getRow() + 2) {
             setRow(getRow() + 2);
-            savanna.getConcreteCell(getRow(), getCol()).getCellAnimals().add(this);
-            savanna.getConcreteCell(getRow() - 2, getCol()).getCellAnimals().remove(this);
+            addAnimalToCell(savanna);
+            removeAnimalFromCell(savanna,(-2),0);
             System.out.print(" na pozycję " + this.getRow() + ". " + this.getCol()+ "\n");
         } else {
             System.out.print("...jednak nie, zwierzak spróbuje jeszcze raz "+ "\n");

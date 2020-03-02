@@ -1,6 +1,7 @@
 package project.animals;
 
-import pl.project.Savanna;
+
+import project.Savanna;
 
 public class Zebra extends Herbivore {
     private String name = Zebra.class.getSimpleName();

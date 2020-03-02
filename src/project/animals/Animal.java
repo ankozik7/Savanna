@@ -22,6 +22,9 @@ public interface Animal {
 
         void oneDay(Savanna savanna);
 
+        void addAnimalToCell(Savanna savanna);
+        void removeAnimalFromCell (Savanna savanna, int rows, int cols);
+
     }
 
 
